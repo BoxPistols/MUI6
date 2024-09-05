@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import * as React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { orange } from '@mui/material/colors';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+declare module '@mui/material/styles' {
+  interface Theme {
+    status: {
+      danger: string;
+    };
+  }
+  // allow configuration using `createTheme`
+  interface ThemeOptions {
+    status?: {
+      danger?: string;
+    };
+  }
 }
 
-export default App
+const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
+  color: theme.status.danger,
+  '&.Mui-checked': {
+    color: theme.status.danger,
+  },
+}));
+
+const theme = createTheme({
+  status: {
+    danger: orange[500],
+  },
+});
+
+export default function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CustomCheckbox defaultChecked />
+    </ThemeProvider>
+  );
+}
