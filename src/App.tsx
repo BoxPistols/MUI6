@@ -1,39 +1,22 @@
-import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { orange } from '@mui/material/colors';
+import { Button, Typography } from "@mui/material";
 
-declare module '@mui/material/styles' {
-  interface Theme {
-    status: {
-      danger: string;
-    };
-  }
-  // allow configuration using `createTheme`
-  interface ThemeOptions {
-    status?: {
-      danger?: string;
-    };
-  }
-}
-
-const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
-  color: theme.status.danger,
-  '&.Mui-checked': {
-    color: theme.status.danger,
-  },
-}));
-
-const theme = createTheme({
-  status: {
-    danger: orange[500],
-  },
-});
-
-export default function App() {
+function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CustomCheckbox defaultChecked />
-    </ThemeProvider>
+    <>
+      {/* <App /> */}
+      <Button>Hello World</Button>
+      <Button variant="dashed">Hello World</Button>
+      <Typography variant="h4" color="secondary">
+        Hello secondary
+      </Typography>
+      <Button variant="contained">Contained</Button>
+      <Button variant="contained" disabled>
+        Disabled
+      </Button>
+      <Button variant="contained" href="#contained-buttons">
+        Link
+      </Button>
+    </>
   );
 }
+export default App;
