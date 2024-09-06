@@ -21,15 +21,7 @@ const cache = createCache({
   stylisPlugins: [],
 });
 
-const neotheme = createTheme({
-  colorSchemes: {
-    dark: theme.colorSchemes.dark,
-    light: theme.colorSchemes.light,
-  },
-  components: {
-    ...theme.components,
-  },
-});
+const neotheme = createTheme(theme);
 
 export default function ModeSwitcher() {
   const { mode, setMode } = useColorScheme();
@@ -49,9 +41,11 @@ export default function ModeSwitcher() {
           top: 12,
           right: 120,
           zIndex: 1000,
+          backgroundColor: "background.paper",
+          borderColor: "primary.main",
         }}
       >
-        <MenuItem value="system">System</MenuItem>
+        <MenuItem value="system">OS Set</MenuItem>
         <MenuItem value="light">Light</MenuItem>
         <MenuItem value="dark">Dark</MenuItem>
       </Select>

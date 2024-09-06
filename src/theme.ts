@@ -1,4 +1,4 @@
-import type { Components } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import { blue } from "@mui/material/colors";
 
 declare module "@mui/material/styles" {
@@ -7,24 +7,44 @@ declare module "@mui/material/styles" {
       danger: string;
     };
   }
-  // allow configuration using `createTheme`
   interface ThemeOptions {
     status?: {
       danger?: string;
     };
-    cssVariables?: boolean;
-    cssVarPrefix?: string;
-    defaultColorScheme?: "light" | "dark" | "system";
-    components?: Components<Omit<Theme, "components">> | undefined;
   }
 }
 
-const theme = {
-  cssVariables: true,
-  cssVarPrefix: "origin",
-  defaultColorScheme: "light",
+declare module "@mui/material/Button" {
+  interface ButtonPropsVariantOverrides {
+    dashed: true;
+  }
+}
+
+const theme = createTheme({
   status: {
     danger: "#e53e3e",
+  },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+        variant: "contained" as const,
+      },
+      variants: [
+        {
+          props: { variant: "dashed" },
+          style: {
+            textTransform: "none",
+            border: `2px dashed ${blue[500]}`,
+          },
+        },
+      ],
+    },
   },
   colorSchemes: {
     light: {
@@ -45,7 +65,6 @@ const theme = {
         },
       },
     },
-    // dark: true,
     dark: {
       palette: {
         primary: {
@@ -64,45 +83,6 @@ const theme = {
       },
     },
   },
-  // components
-  components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
-      },
-      styleOverrides: {
-        root: {
-          variants: [
-            {
-              props: { variant: "outlined" },
-              style: {
-                textTransform: "none",
-              },
-            },
-          ],
-        },
-      },
-    },
-    MuiButton: {
-      defaultProps: {
-        disableElevation: true,
-        variant: "contained",
-      },
-      styleOverrides: {
-        root: {
-          variants: [
-            {
-              props: { variant: "dashed" },
-              style: {
-                textTransform: "none",
-                border: `2px dashed ${blue[500]}`,
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
-};
+});
 
 export default theme;
