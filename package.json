@@ -6,14 +6,15 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
-		"format": "yarn biome format --write ./src",
-		"lint": "yarn biome lint --write ./src",
-		"fix": "yarn run lint && yarn run format",
+		"format": "bun biome format --write ./src",
+		"lint": "bun biome lint --write ./src",
+		"fix": "bun run lint && bun run format",
 		"preview": "vite preview",
 		"storybook": "storybook dev -p 6006",
 		"sb-build": "storybook build",
-		"prepare": "husky install",
-		"build-all": "yarn run build && yarn run sb-build"
+		"build-all": "bun run build && bun run sb-build",
+		"prepare": "husky",
+		"test": "echo 'No tests specified' && exit 0"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.13.3",
@@ -54,8 +55,11 @@
 		"vite": "^5.4.1"
 	},
 	"eslintConfig": {
-		"extends": [
-			"plugin:storybook/recommended"
-		]
+		"extends": ["plugin:storybook/recommended"]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "bun run lint && bun run format"
+		}
 	}
 }

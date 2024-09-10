@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Remove these two lines:
+# #!/usr/bin/env sh
+# . "$(dirname -- "$0")/_/husky.sh"
+
+# Add your commands directly:
+bun run lint
+bun run format
+# Add other commands as needed
